@@ -25,10 +25,3 @@ npm run build
 Anurag Kumar Niraj
 (https://www.linkedin.com/in/n-anurag/)
 
-### Version
-
-1.0.0
-
-### License
-
-This project is licensed under the MIT License
