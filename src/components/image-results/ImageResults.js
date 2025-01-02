@@ -50,9 +50,22 @@ class ImageResults extends Component {
     } else {
       imageListContent = null;
     }
-
+    const downloadImage = () => {
+      const link = document.createElement('a');
+      link.href = this.state.currentImg;
+      link.download = 'downloaded_image.png'; // Specify the image name
+      link.click();
+    };
     const actions = [
-      <FlatButton label="Close" primary={true} onClick={this.handleClose} />
+      <FlatButton label="Close" primary={true} onClick={this.handleClose} />,
+      <a href={this.state.currentImg} download="image.jpg">
+        <FlatButton 
+          label="Download" 
+          primary={true} 
+          style={{ marginLeft: '72%' }} 
+          onClick={downloadImage} // Trigger download when clicked
+        />
+      </a>
     ];
 
     return (
