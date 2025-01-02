@@ -8,7 +8,7 @@ import ImageResults from '../image-results/ImageResults';
 class Search extends Component {
   state = {
     searchText: '',
-    amount: 15,
+    amount: 10,
     apiUrl: 'https://pixabay.com/api',
     apiKey: '30228470-e6e7d53b090e624c8a1025c13',
     images: []
@@ -20,8 +20,7 @@ class Search extends Component {
       if (val === '') {
         this.setState({ images: [] });
       } else {
-        axios
-          .get(
+        axios.get(
             `${this.state.apiUrl}/?key=${this.state.apiKey}&q=${
               this.state.searchText
             }&image_type=photo&per_page=${this.state.amount}&safesearch=true`
@@ -32,7 +31,23 @@ class Search extends Component {
     });
   };
 
-  onAmountChange = (e, index, value) => this.setState({ amount: value });
+  onAmountChange = (e, index, value) => {
+    console.log("value: ", value);
+    
+    this.setState({ amount: value }, () => {
+      // Ensure that searchText is defined before making the API call
+      if (this.state.searchText) {
+        axios.get(
+          `${this.state.apiUrl}/?key=${this.state.apiKey}&q=${
+            this.state.searchText
+          }&image_type=photo&per_page=${value}&safesearch=true`
+        )
+        .then(res => this.setState({ images: res.data.hits }))
+        .catch(err => console.log(err));
+      }
+    });
+  };
+    
 
   render() {
     console.log(this.state.images);
@@ -40,9 +55,9 @@ class Search extends Component {
       <div>
         <TextField
           name="searchText"
+          floatingLabelText="Search For Images"
           value={this.state.searchText}
           onChange={this.onTextChange}
-          floatingLabelText="Search For Images"
           fullWidth={true}
         />
         <br />
