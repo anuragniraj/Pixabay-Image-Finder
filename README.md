@@ -1,5 +1,5 @@
 # PixaBay Image Finder
-
+- User can search the top class, high pixled Images from PixaBay website.
 > React & Material UI app to find images utilizing the PixaBay API
 
 Register your API Key at
